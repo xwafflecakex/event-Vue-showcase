@@ -30,7 +30,7 @@ const routes = [
   },
   // Dynamic routing
   {
-    path: '/user/:username',
+    path: '/user/:username', // So the :user name is a prop and is dynamically looking for the username, and ID.
     name: 'user',
     component: User,
     props: true //This sends route params into component as props.
