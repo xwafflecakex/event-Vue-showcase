@@ -28,6 +28,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  store,
+  store, // injecting the store.
   render: h => h(App)
 }).$mount('#app')
