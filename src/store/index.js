@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import EventService from '@/services/EventService.js'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {id: 'abc123', name: 'Simple Man'},
+    user: { id: 'abc123', name: 'Simple Man' },
     categories: [
       'sustainability',
       'nature',
@@ -17,21 +18,34 @@ export default new Vuex.Store({
     ],
     // passing getters Example
     todos: [
-      {id: 1, text: '...', done: true},
-      {id: 2, text: '...', done: false},
-      {id: 3, text: '...', done: true},
-      {id: 4, text: '...', done: false},
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false },
+      { id: 3, text: '...', done: true },
+      { id: 4, text: '...', done: false },
     ],
     events: [
-      {id: 1, text: '...', organizer: '...'},
-      {id: 2, text: '...', organizer: '...'},
-      {id: 3, text: '...', organizer: '...'},
-      {id: 4, text: '...', organizer: '...'},
+      { id: 12222, text: '...', organizer: '...' },
+      { id: 222222, text: '...', organizer: '...' },
+      { id: 322222, text: '...', organizer: '...' },
+      { id: 42222, text: '...', organizer: '...' },
 
     ]
   },
-  mutations: {},
-  actions: {},
+  // ALWAYS wrap mutations in an Action
+  mutations: {
+    ADD_EVENT(state, event) {
+      state.events.push(event)
+    }
+  },
+  actions: {
+    // commit is the context object and event the payload
+    createEvent({ commit }, event) {
+      // Should also post the new event to the DB, then commit to the state
+      return EventService.postEvent(event).then(() => {
+        commit('ADD_EVENT', event)  // now it will commit when api call responds
+      })
+    }
+  },
   modules: {},
   getters: {
     catLength: state => {
