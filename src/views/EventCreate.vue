@@ -2,7 +2,7 @@
 	<div>
 		<h1>Create an Event, {{ user.name }}</h1>
 		<!-- THis is used to demonstrate Actions and mutations in Vuex, .prevet to prevent default behaivor eg. reloads -->
-		<form @submit.prevet="createEvent">
+		<form @submit.prevent="createEvent">
 			<label>Select a category</label>
 			<select v-model="event.category">
 				<option v-for="cat in categories" :key="cat">{{ cat }}</option>
@@ -45,7 +45,7 @@
 			</li>
 		</ul>
 		<p>There are {{ catLength }} categories</p>
-		<p>The event: {{ getEventById(2) }}</p>
+		<p>The event: {{ getEventById(1) }}</p>
 
 		<ul>
 			<li v-for="(cat, catidx) in categories" :key="catidx">{{ cat }}</li>
