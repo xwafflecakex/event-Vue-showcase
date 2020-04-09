@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Create an Event, {{ user.name }}</h1>
+		<h1>Create an Event, {{ user.user.name }}</h1>
 		<!-- THis is used to demonstrate Actions and mutations in Vuex, .prevet to prevent default behaivor eg. reloads -->
 		<form @submit.prevent="createEvent">
 			<label>Select a category</label>
@@ -75,8 +75,8 @@
 		methods: {
 			createEvent() {
 				// now the event only clears when api call responds from the action is returned
-				this.$store
-					.dispatch("createEvent", this.event)
+				this
+					.dispatch("event/createEvent", this.event)
 					.then(() => {
 						this.$router.push({
 							// This will route the user to the newly created event.
@@ -90,7 +90,7 @@
 					});
 			},
 			createFreshEventObject() {
-				const user = this.$store.state.user;
+				const user = this.$store.state.user.user;
 				const id = Math.floor(Math.random() * 100000); // rand id for each event created
 				return {
 					category: "",
@@ -105,7 +105,7 @@
 			},
 		},
 		computed: {
-			...mapGetters(["getEventById", "catLength", "activeTodosCount"]),
+			...mapGetters("event", ["getEventById", "catLength", "activeTodosCount"]),
 			// the unmapped getters.
 			// catLength() {
 			//   return this.$store.getters.catLength

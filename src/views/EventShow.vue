@@ -29,13 +29,17 @@
 	</div>
 </template>
 <script>
-	import { mapState } from "vuex";
+	import { mapState, mapActions } from "vuex";
 	export default {
 		props: ["id"],
 		created() {
-			this.$store.dispatch("fetchEvent", this.id);
+			this.fetchEvent(this.id);
 		},
-		computed: mapState(["event"]),
+		methods: mapActions("event", ["fetchEvent"]), // or  cuz namespace event/fetchEvent
+		// map to an object event so that i don't have to change the event.event.time...ect
+		computed: mapState({
+			event: (state) => state.event.event,
+		}),
 	};
 </script>
 <style scoped>
