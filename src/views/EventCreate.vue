@@ -75,7 +75,7 @@
 		methods: {
 			createEvent() {
 				// now the event only clears when api call responds from the action is returned
-				this
+				this.$store
 					.dispatch("event/createEvent", this.event)
 					.then(() => {
 						this.$router.push({
@@ -105,7 +105,10 @@
 			},
 		},
 		computed: {
-			...mapGetters("event", ["getEventById", "catLength", "activeTodosCount"]),
+			catLength() {
+				return this.$store.getters.catLength;
+			},
+			...mapGetters("event", ["getEventById", "activeTodosCount"]),
 			// the unmapped getters.
 			// catLength() {
 			//   return this.$store.getters.catLength

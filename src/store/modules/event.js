@@ -10,7 +10,14 @@ export const state = {
      // mutation way
      eventsTotal: 0,
      events: [],
-     event: {}
+     event: {},
+     // passing getters Example
+     todos: [
+          { id: 1, text: '...', done: true },
+          { id: 2, text: '...', done: false },
+          { id: 3, text: '...', done: true },
+          { id: 4, text: '...', done: false },
+     ],
 }
 // ALWAYS wrap mutations in an Action
 export const mutations = {
@@ -70,6 +77,17 @@ export const getters = {
      getEventById: state => id => {
           // find event id with the event id given.
           return state.events.find(event => event.id === id)
-     }
+     },
+     doneTodos: state => {
+          return state.todos.filter(todo => todo.done)
+     },
+     // passing the entire getter object in
+     activeTodosCount: (state, getters) => {
+          return state.todos.length - getters.doneTodos.length
+     },
+     // For the NExt pagation problem without saving ref header from server.
+     // findEndPage: state => {
+     //   return state.endPage
+     // }
 
 }
