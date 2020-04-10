@@ -1,16 +1,19 @@
 <template>
 	<div id="app">
 		<NavBar />
-		<!-- fullpage ensures reloading the page when the URL or query params change -->
+		<!-- fullpage ensures reloading the page when the URL or query params change, notifiaction displayed throughout the app. -->
+		<NotificationContainer />
 		<router-view :key="$route.fullPath" />
 	</div>
 </template>
 
 <script>
 	import NavBar from "@/components/Navbar.vue";
+	import NotificationContainer from "@/components/NotificationContainer.vue";
 	export default {
 		components: {
 			NavBar,
+			NotificationContainer,
 		},
 	};
 </script>

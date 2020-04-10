@@ -273,6 +273,20 @@
       "time": "6:00",
       "attendees": [],
       "id": 13
+    },
+    {
+      "category": "animeal welfare",
+      "organizer": {
+        "id": "abc123",
+        "name": "Simpler"
+      },
+      "title": "Testing Notifications",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": [],
+      "id": 14
     }
   ]
 }

@@ -86,7 +86,8 @@
 						this.event = this.createFreshEventObject(); // resets the event form but only when a new one is posted, however fixed in store js
 					})
 					.catch(() => {
-						console.log("There was a problem uploading your event");
+						// catches the error from Vuex
+						// and doesn't clear or route the user.
 					});
 			},
 			createFreshEventObject() {
@@ -105,10 +106,11 @@
 			},
 		},
 		computed: {
-			catLength() {
-				return this.$store.getters.catLength;
-			},
-			...mapGetters("event", ["getEventById", "activeTodosCount"]),
+			// catLength() {
+			// 	return this.$store.getters.catLength;
+			// },
+			...mapGetters("event", ["getEventById"]), // one namespace per mapping
+			...mapGetters(["activeTodosCount", "catLength"]),
 			// the unmapped getters.
 			// catLength() {
 			//   return this.$store.getters.catLength

@@ -11,13 +11,6 @@ export const state = {
      eventsTotal: 0,
      events: [],
      event: {},
-     // passing getters Example
-     todos: [
-          { id: 1, text: '...', done: true },
-          { id: 2, text: '...', done: false },
-          { id: 3, text: '...', done: true },
-          { id: 4, text: '...', done: false },
-     ],
 }
 // ALWAYS wrap mutations in an Action
 export const mutations = {
@@ -36,14 +29,26 @@ export const mutations = {
 }
 export const actions = {
      // commit is the context object (lets you access mutations) and event the payload
-     createEvent({ commit }, event) {
+     createEvent({ commit, dispatch }, event) {
           // Should also post the new event to the DB, then commit to the state
           return EventService.postEvent(event).then(() => {
                commit('ADD_EVENT', event)  // now it will commit when api call responds
+               const notification = {
+                    type: 'success',
+                    message: 'Your event was created Successfully.'
+               }
+               dispatch('notification/add', notification, { root: true })
+          }).catch(error => {
+               const notification = {
+                    type: 'error',
+                    message: 'There was a problem creating your event: ' + error.message
+               }
+               dispatch('notification/add', notification, { root: true })
+               throw error // this will propergate it up to the component.
           })
      },
      // Getting the events in the form of an Api call with waiting to recive OKAy from server before fetch and error catch.
-     fetchEvents({ commit }, { perPage, page }) {
+     fetchEvents({ commit, dispatch }, { perPage, page }) {
           EventService.getEvents(perPage, page)
                .then(response => {
                     // printing the JSON server;s responce header total-count
@@ -53,11 +58,16 @@ export const actions = {
                     commit('SET_EVENTS', response.data) // as long as mutation is inside the module, don't need to worry about namespace, BESTPRAC to not do that
                })
                .catch(error => {
-                    console.log('There was an error:', error.response)
+                    // creating an notification object for the error to show the user.
+                    const notification = {
+                         type: 'error',
+                         message: 'There was a problem fetching events: ' + error.message
+                    }
+                    dispatch('notification/add', notification, { root: true }) // root true is for the dispatcher to route to the correct module, will error without.
                })
      },
      // fetching individual event
-     fetchEvent({ commit, getters }, id) {
+     fetchEvent({ commit, getters, dispatch }, id) {
           let event = getters.getEventById(id) // find specific event
           if (event) {
                commit('SET_EVENT', event) // commit mutation if found, else do api call.
@@ -67,7 +77,11 @@ export const actions = {
                          commit('SET_EVENT', response.data)
                     })
                     .catch((error) => {
-                         console.log("There was an error:", error.response);
+                         const notification = {
+                              type: 'error',
+                              message: 'There was a problem fetching event: ' + error.message
+                         }
+                         dispatch('notification/add', notification, { root: true }) // root true is for the dispatcher to route to the correct module, will error without.
                     });
           }
      }
@@ -77,14 +91,7 @@ export const getters = {
      getEventById: state => id => {
           // find event id with the event id given.
           return state.events.find(event => event.id === id)
-     },
-     doneTodos: state => {
-          return state.todos.filter(todo => todo.done)
-     },
-     // passing the entire getter object in
-     activeTodosCount: (state, getters) => {
-          return state.todos.length - getters.doneTodos.length
-     },
+     }
      // For the NExt pagation problem without saving ref header from server.
      // findEndPage: state => {
      //   return state.endPage
