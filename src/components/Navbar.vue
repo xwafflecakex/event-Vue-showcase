@@ -1,16 +1,23 @@
 <template>
-  <div id="nav" class="nav">
-    <router-link to="/" class="brand">Events List App</router-link>
+  <div
+    id="nav"
+    class="nav"
+  >
+    <router-link
+      to="/"
+      class="brand"
+    >Events List App</router-link>
     <nav>
       <router-link :to="{ name: 'EventList' }">List</router-link> |
-      <router-link :to="{ name: 'EventCreate' }">Create</router-link>
+      <router-link :to="{ name: 'EventCreate' }">Create</router-link> |
+      <router-link :to="{ name: 'animation'}">Animations</router-link>
       <!-- <router-link :to="{ name: 'user', params: { username: 'gregg' } }">Gregg</router-link> FOR Dynamic Link with params -->
     </nav>
   </div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style lang="scss" scoped>
@@ -21,7 +28,7 @@ export default {}
   height: 60px;
 }
 .nav > .brand {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 1.5em;
   color: #39b982;
