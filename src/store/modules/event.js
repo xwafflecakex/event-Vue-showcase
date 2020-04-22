@@ -72,7 +72,8 @@ export const actions = {
           if (event) {
                commit('SET_EVENT', event) // commit mutation if found, else do api call.
           } else {
-               EventService.getEvent(id)
+               // promise isn't getting returned so then() is rendered immediatly in EventShow
+               return EventService.getEvent(id)
                     .then((response) => {
                          commit('SET_EVENT', response.data)
                     })
