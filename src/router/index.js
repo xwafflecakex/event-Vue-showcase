@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import EventList from '../views/EventList.vue'
 import User from '../views/User.vue'
-import AnimationTest from '../views/AnimationTest.vue'
 import Nprogress from 'nprogress'
 import store from '@/store/index.js'
 
@@ -30,6 +29,15 @@ const routes = [
       store.dispatch('event/fetchEvent', routeTo.params.id).then((event) => {
         routeTo.params.event = event
         next()
+      }).catch(error => {
+        if (error.response && error.response.status == 404) {
+          next({
+            name: '404',
+            params: { resource: 'event' }
+          })
+        } else {
+          next({ name: 'network-issue' })
+        }
       })
     },
   },
@@ -50,6 +58,31 @@ const routes = [
     name: 'animation',
     component: () => import('../views/AnimationTest.vue'),
   },
+  {
+    path: '/404',
+    name: '404',
+    props: true,
+    component: () => import('../views/404NotFound.vue'),
+  },
+  {
+    path: '/network-issue',
+    name: 'network-issue',
+    component: () => import('../views/NetworkIssue.vue'),
+
+  },
+
+  // catch-all route
+  {
+    path: '*',
+    redirect: {
+      name: '404',
+      params: {
+        resource: 'page'
+      }
+    }
+  },
+
+
 ]
 
 const router = new VueRouter({

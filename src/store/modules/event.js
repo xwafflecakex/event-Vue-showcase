@@ -69,7 +69,10 @@ export const actions = {
                })
      },
      // fetching individual event
-     fetchEvent({ commit, getters, dispatch }, id) {
+     fetchEvent({ commit, getters, state }, id) {
+          if (id == state.event.id) {
+               return state.event
+          }
           let event = getters.getEventById(id) // find specific event
           if (event) {
                commit('SET_EVENT', event) // commit mutation if found, else do api call.
@@ -81,13 +84,16 @@ export const actions = {
                          commit('SET_EVENT', response.data)
                          return response.data // action return
                     })
-                    .catch((error) => {
-                         const notification = {
-                              type: 'error',
-                              message: 'There was a problem fetching event: ' + error.message
-                         }
-                         dispatch('notification/add', notification, { root: true }) // root true is for the dispatcher to route to the correct module, will error without.
-                    });
+               // getting rid of the catch so the router can handle it instead.
+               /*
+               .catch((error) => {
+                    const notification = {
+                         type: 'error',
+                         message: 'There was a problem fetching event: ' + error.message
+                    }
+                    dispatch('notification/add', notification, { root: true }) // root true is for the dispatcher to route to the correct module, will error without.
+               });
+               */
           }
      }
 }
