@@ -31,7 +31,7 @@ export const actions = {
      // commit is the context object (lets you access mutations) and event the payload
      createEvent({ commit, dispatch }, event) {
           // Should also post the new event to the DB, then commit to the state
-          return EventService.postEvent(event).then(() => {
+          EventService.postEvent(event).then(() => {
                commit('ADD_EVENT', event)  // now it will commit when api call responds
                const notification = {
                     type: 'success',
@@ -71,11 +71,13 @@ export const actions = {
           let event = getters.getEventById(id) // find specific event
           if (event) {
                commit('SET_EVENT', event) // commit mutation if found, else do api call.
+               return event // from action return
           } else {
-               // promise isn't getting returned so then() is rendered immediatly in EventShow
+               // promise isn't getting returned so then() is rendered immediatly in EventShow -- add a return in next line.
                return EventService.getEvent(id)
                     .then((response) => {
                          commit('SET_EVENT', response.data)
+                         return response.data // action return
                     })
                     .catch((error) => {
                          const notification = {

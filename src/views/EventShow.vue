@@ -33,29 +33,36 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
-import store from "@/store/index.js";
-import Nprogress from "nprogress";
+//-- Can remove all Vuex form the Component since we are handling it as a prop through the router instead.
+// import { mapState, mapActions } from "vuex";
+// import store from "@/store/index.js";
+// import Nprogress from "nprogress";
 export default {
-  props: ["id"],
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    Nprogress.start();
-    // no acess to "this" yet. Use Store
-    store.dispatch("event/fetchEvent", routeTo.params.id).then(() => {
-      // when API returnes from the Promise.
-      Nprogress.done();
-      next(); // to continue navigation
-    });
-  },
+  props: {
+    event: {
+      type: Object,
+      required: true
+    }
+  }
+  //--------- not global router hooks.
+  //   beforeRouteEnter(routeTo, routeFrom, next) {
+  //     Nprogress.start();
+  //     // no acess to "this" yet. Use Store
+  //     store.dispatch("event/fetchEvent", routeTo.params.id).then(() => {
+  //       // when API returnes from the Promise.
+  //       Nprogress.done();
+  //       next(); // to continue navigation
+  //     });
+  //   },
   // irrelevent thanks to Route Guards
   //   created() {
   //     this.fetchEvent(this.id);
   //   },
   //   methods: mapActions("event", ["fetchEvent"]), or  cuz namespace event/fetchEvent
   // map to an object event so that i don't have to change the event.event.time...ect
-  computed: mapState({
-    event: state => state.event.event
-  })
+  //   computed: mapState({
+  //     event: state => state.event.event
+  //   })
 };
 </script>
 <style scoped>

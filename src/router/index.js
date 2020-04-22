@@ -1,10 +1,10 @@
-// @ts-nocheck
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// @ts-ignore
 import EventList from '../views/EventList.vue'
 import User from '../views/User.vue'
 import AnimationTest from '../views/AnimationTest.vue'
+import Nprogress from 'nprogress'
+import store from '@/store/index.js'
 
 Vue.use(VueRouter)
 
@@ -22,7 +22,15 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/EventShow.vue')
+      import(/* webpackChunkName: "about" */ '../views/EventShow.vue'),
+    // runing the global beforeEach
+    beforeEnter(routeTo, routeFrom, next) {
+      // call the action passing in the ID of the event, we recive the event in the Then
+      store.dispatch('event/fetchEvent', routeTo.params.id).then((event) => {
+        routeTo.params.event = event
+        next()
+      })
+    },
   },
   {
     path: '/event/create',
@@ -46,6 +54,16 @@ const routes = [
 const router = new VueRouter({
   mode: 'history', // uses the browsers history.pushstate API, change URl without reloads
   routes
+})
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  Nprogress.start()
+  next()
+})
+
+router.afterEach(() => {
+  // Complete the animation of the route progress bar.
+  Nprogress.done()
 })
 
 export default router
