@@ -11,6 +11,7 @@ export const state = {
      eventsTotal: 0,
      events: [],
      event: {},
+     perPage: 3,
 }
 // ALWAYS wrap mutations in an Action
 export const mutations = {
@@ -48,8 +49,9 @@ export const actions = {
           })
      },
      // Getting the events in the form of an Api call with waiting to recive OKAy from server before fetch and error catch.
-     fetchEvents({ commit, dispatch }, { perPage, page }) {
-          EventService.getEvents(perPage, page)
+     // Adding the perPAge state and returning the call.
+     fetchEvents({ commit, dispatch, state }, { page }) {
+          return EventService.getEvents(state.perPage, page)
                .then(response => {
                     // printing the JSON server;s responce header total-count
                     console.log('Total events are ' + response.headers['x-total-count'])
