@@ -8,6 +8,7 @@ import camelCase from 'lodash/camelCase'
 import 'nprogress/nprogress.css'
 
 const requireComponent = require.context(
+  //making 'base' named components global compnents
   './components',
   false,
   /Base[A-Z]\w+\.(vue|js)$/

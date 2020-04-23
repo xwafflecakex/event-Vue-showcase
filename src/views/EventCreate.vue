@@ -3,39 +3,35 @@
     <h1>Create an Event, {{ user.user.name }}</h1>
     <!-- THis is used to demonstrate Actions and mutations in Vuex, .prevet to prevent default behaivor eg. reloads -->
     <form @submit.prevent="createEvent">
-      <label>Select a category</label>
-      <select v-model="event.category">
-        <option
-          v-for="cat in categories"
-          :key="cat"
-        >{{ cat }}</option>
-      </select>
+      <BaseSelect
+        label="Select a Category"
+        :options="categories"
+        v-model="event.category"
+      />
       <h3>Name & describe your event</h3>
-      <div class="field">
-        <label>Title</label>
-        <input
-          v-model="event.title"
-          type="text"
-          placeholder="Add an event title"
-        />
-      </div>
-      <div class="field">
-        <label>Description</label>
-        <input
-          v-model="event.description"
-          type="text"
-          placeholder="Add a description"
-        />
-      </div>
+      <BaseInput
+        class="
+        field"
+        label='Title'
+        v-model="event.title"
+        type="text"
+        placeholder="Title"
+      />
+      <BaseInput
+        class="field"
+        label='Describtion'
+        v-model="event.description"
+        type="text"
+        placeholder="Describtion"
+      />
       <h3>Where is your event?</h3>
-      <div class="field">
-        <label>Location</label>
-        <input
-          v-model="event.location"
-          type="text"
-          placeholder="Add a location"
-        />
-      </div>
+      <BaseInput
+        class="field"
+        label='Location'
+        v-model="event.location"
+        type="text"
+        placeholder="Add an Event Location"
+      />
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
@@ -44,20 +40,21 @@
           placeholder="Select a date"
         />
       </div>
-      <div class="field">
-        <label>Select a time</label>
-        <select v-model="event.time">
-          <option
-            v-for="time in times"
-            :key="time"
-          >{{ time }}</option>
-        </select>
-      </div>
-      <input
+      <BaseSelect
+        label="Select a Time"
+        :options="times"
+        v-model="event.time"
+        class="field"
+      />
+      <!-- <input
         type="submit"
         class="button -fill-gradient"
         value="Submit"
-      />
+      /> -->
+      <BaseButton
+        type="submit"
+        buttonClass="-fill-gradient"
+      >Submit</BaseButton>
     </form>
     <!-- This was demonstarting the store, and getters, Mapping -->
     <p>This was created by {{ user.name }}</p>
@@ -84,10 +81,14 @@
   </div>
 </template>
 
+
 <script>
 import { mapState, mapGetters } from "vuex";
 import Datepicker from "vuejs-datepicker";
 import Nprogress from "nprogress";
+
+// If you need to select and pase not so primitive data types like an object, import
+// Libary -- Vue-multiselect and searching
 
 export default {
   components: {
@@ -117,7 +118,8 @@ export default {
             name: "event-show",
             params: { id: this.event.id }
           });
-          this.event = this.createFreshEventObject(); // resets the event form but only when a new one is posted, however fixed in store js
+          // resets the event form but only when a new one is posted, however fixed in store js
+          this.event = this.createFreshEventObject();
         })
         .catch(() => {
           // catches the error from Vuex
