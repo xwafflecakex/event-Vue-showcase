@@ -6,6 +6,10 @@ import store from './store'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import 'nprogress/nprogress.css'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
+Vue.config.productionTip = false
 
 const requireComponent = require.context(
   //making 'base' named components global compnents
@@ -26,7 +30,7 @@ requireComponent.keys().forEach(fileName => {
 // import BaseIcon from '@/components/BaseIcon.vue' making base icon a global compnent manually
 // Vue.component('BaseIcon', BaseIcon)
 
-Vue.config.productionTip = false
+
 
 new Vue({
   router,

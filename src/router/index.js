@@ -42,6 +42,11 @@ const routes = [
     },
   },
   {
+    path: '/example',
+    name: 'Example',
+    component: () => import('../views/Example.vue')
+  },
+  {
     path: '/event/create',
     name: 'EventCreate',
     component: () => import('../views/EventCreate.vue')
