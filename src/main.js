@@ -7,7 +7,9 @@ import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import 'nprogress/nprogress.css'
 import Vuelidate from 'vuelidate'
+import Datefilter from './filters/date'
 
+Vue.filter('date', Datefilter)
 Vue.use(Vuelidate)
 Vue.config.productionTip = false
 
