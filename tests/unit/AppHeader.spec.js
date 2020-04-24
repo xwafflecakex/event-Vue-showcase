@@ -1,0 +1,1 @@
+// testing the example component with jest
