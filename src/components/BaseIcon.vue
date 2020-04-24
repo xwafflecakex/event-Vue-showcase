@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'Icon',
+  name: "Icon",
   props: {
     name: String,
     width: {
@@ -23,7 +23,7 @@ export default {
       default: 24
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

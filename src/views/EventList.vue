@@ -2,11 +2,7 @@
   <div>
     <!-- so the first user is the module name and the second is the State -->
     <h1>Events for {{ user.user.name }}</h1>
-    <EventCard
-      v-for="event in event.events"
-      :key="event.id"
-      :event="event"
-    />
+    <EventCard v-for="event in event.events" :key="event.id" :event="event" />
     <!-- prevent printing previous page if on first page -->
     <!-- To get the event list to update and refresh the component page, we can either watch the page computed prop, and call fetch when it chages.
     OR we can reload the componetns when the URL changes, and also the query param. -->
@@ -15,7 +11,8 @@
         :to="{ name: 'EventList', query: { page: page - 1 } }"
         rel="prev"
       >
-        Previous Page</router-link>
+        Previous Page</router-link
+      >
       |
     </template>
     <template v-if="endPage2">
@@ -27,7 +24,8 @@
         :to="{ name: 'EventList', query: { page: page + 1 } }"
         rel="next"
       >
-        Next Page</router-link>
+        Next Page</router-link
+      >
     </template>
   </div>
 </template>

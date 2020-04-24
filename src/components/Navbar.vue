@@ -1,16 +1,10 @@
 <template>
-  <div
-    id="nav"
-    class="nav"
-  >
-    <router-link
-      to="/"
-      class="brand"
-    >Events List App</router-link>
+  <div id="nav" class="nav">
+    <router-link to="/" class="brand">Events List App</router-link>
     <nav>
       <router-link :to="{ name: 'EventList' }">List</router-link> |
       <router-link :to="{ name: 'EventCreate' }">Create</router-link> |
-      <router-link :to="{ name: 'animation'}">Animations</router-link>
+      <router-link :to="{ name: 'animation' }">Animations</router-link>
       <!-- <router-link :to="{ name: 'user', params: { username: 'gregg' } }">Gregg</router-link> FOR Dynamic Link with params -->
     </nav>
   </div>

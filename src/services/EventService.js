@@ -1,17 +1,17 @@
-import axios from 'axios'
-import NProgress from 'nprogress'
+import axios from "axios";
+import NProgress from "nprogress";
 
 // Single instance of Axios.
 const apiClient = axios.create({
   baseURL: `http://localhost:3000`,
   withCredentials: false, // This is the default
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
+    Accept: "application/json",
+    "Content-Type": "application/json"
   },
   //throw error if API call is longer then 10 seconds
   timeout: 10000
-})
+});
 
 /***
  This solution is not so good for multiple API calls. Need a LOADING Vuex module to hold the state when LOADING.
@@ -36,17 +36,15 @@ apiClient.interceptors.response.use(response => { // Called on response
 // Catch 401 errors and not Auth responces
  */
 
-
-
 export default {
   getEvents(perPage, page) {
-    return apiClient.get('/events?_limit=' + perPage + '&_page=' + page)
+    return apiClient.get("/events?_limit=" + perPage + "&_page=" + page);
   },
   // adding another event call
   getEvent(id) {
-    return apiClient.get('/events/' + id)
+    return apiClient.get("/events/" + id);
   },
   postEvent(event) {
-    return apiClient.post('/events', event)
-  },
-}
+    return apiClient.post("/events", event);
+  }
+};

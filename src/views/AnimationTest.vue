@@ -2,11 +2,7 @@
   <div class="hello">
     <h1>VueJS <span>Animations</span> and <span>Transitions</span> Tutorial</h1>
 
-    <button
-      class="btn btn-primary"
-      v-if="!show"
-      v-on:click="show = !show"
-    >
+    <button class="btn btn-primary" v-if="!show" v-on:click="show = !show">
       Show Mission
     </button>
     <button
