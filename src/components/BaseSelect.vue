@@ -1,38 +1,27 @@
 <template>
 	<div>
 		<label v-if="label">{{ label }}</label>
-		<select v-bind="$attrs" :value="value" @input="updateValue" v-on="$listeners">
-			<option v-for="option in options" :key="option" :selected="option === value"
-				>{{ option }}
-			</option>
+		<select :value="value" @change="updateValue" v-bind="$attrs" v-on="$listeners">
+			<option
+				v-for="option in options"
+				:value="option"
+				:key="option.id"
+				:selected="option === value"
+				>{{ option }}</option
+			>
 		</select>
 	</div>
 </template>
 
 <script>
+	import { formFieldMixin } from "../mixins/formFieldMixin";
 	export default {
-		// removes Vue default inheritance so that we can tell where exatly we want to
-		// inherite the parents properties.
-		inheritAttrs: false,
+		mixins: [formFieldMixin],
 		props: {
 			options: {
 				type: Array,
 				required: true,
 			},
-			label: {
-				type: String,
-				default: "",
-			},
-			// for the Sugar Syntax to recive/send a value
-			value: [String, Number],
-		},
-		methods: {
-			updateValue(event) {
-				//emits the event being created and the input value
-				this.$emit("input", event.target.value);
-			},
 		},
 	};
 </script>
-
-<style lang="scss" scoped></style>

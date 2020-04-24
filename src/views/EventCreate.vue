@@ -13,10 +13,10 @@
 			<template v-if="$v.event.category.$error">
 				<p v-if="!$v.event.category.required" class="errorMessage">Category is Required.</p>
 			</template>
+
 			<h3>Name & describe your event</h3>
 			<BaseInput
-				class="
-        field"
+				class="field"
 				label="Title"
 				v-model.trim="event.title"
 				type="text"
@@ -61,7 +61,7 @@
 				<datepicker
 					v-model="event.date"
 					placeholder="Select a date"
-					@closed="$v.event.date.$touch()"
+					@opened="$v.event.date.$touch()"
 					:input-class="{ error: $v.event.date.$error }"
 				/>
 			</div>
@@ -120,16 +120,6 @@
 	// Libary -- Vue-multiselect and searching
 
 	export default {
-		validations: {
-			event: {
-				category: { required },
-				title: { required },
-				description: { required },
-				location: { required },
-				date: { required },
-				time: { required },
-			},
-		},
 		components: {
 			Datepicker,
 		},
@@ -140,36 +130,45 @@
 			}
 			return {
 				// THis event method will input all the fields which will allow to clear the event object.
-				event: this.createFreshEventObject(),
 				times,
 				categories: this.$store.state.categories,
+				event: this.createFreshEventObject(),
 			};
 		},
-
+		validations: {
+			event: {
+				category: { required },
+				title: { required },
+				description: { required },
+				location: { required },
+				date: { required },
+				time: { required },
+			},
+		},
 		methods: {
 			createEvent() {
-        // validates that all fields inthe form are dirty
-        this.$v.$touch()
-        if (!this.$v.$invalid) {
-          Nprogress.start();
-				// now the event only clears when api call responds from the action is returned
-				this.$store
-					.dispatch("event/createEvent", this.event)
-					.then(() => {
-						this.$router.push({
-							// This will route the user to the newly created event.
-							name: "event-show",
-							params: { id: this.event.id },
+        			// validates that all fields inthe form are dirty
+        			this.$v.$touch()
+        			if (!this.$v.$invalid) {
+          			Nprogress.start();
+					// now the event only clears when api call responds from the action is returned
+					this.$store
+						.dispatch("event/createEvent", this.event)
+						.then(() => {
+							this.$router.push({
+								// This will route the user to the newly created event.
+								name: "event-show",
+								params: { id: this.event.id },
+							});
+							// resets the event form but only when a new one is posted, however fixed in store js
+							this.event = this.createFreshEventObject();
+						})
+						.catch(() => {
+							// catches the error from Vuex
+							// and doesn't clear or route the user.
+							Nprogress.done();
 						});
-						// resets the event form but only when a new one is posted, however fixed in store js
-						this.event = this.createFreshEventObject();
-					})
-					.catch(() => {
-						// catches the error from Vuex
-						// and doesn't clear or route the user.
-						Nprogress.done();
-					});
-        }
+				}
 			},
 			createFreshEventObject() {
 				const user = this.$store.state.user.user;
