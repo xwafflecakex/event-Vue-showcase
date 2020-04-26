@@ -1,15 +1,22 @@
-<p>
-     <a href="http://badge.fury.io/js/jest"><img src="https://badge.fury.io/js/jest.svg" alt="npm version"></a>
+<p align="center"><a href="https://vuejs.org" target="_blank" rel="noopener noreferrer"><img width="100" src="https://vuejs.org/images/logo.png" alt="Vue logo"></a></p>
+
+<p align="center">
+       <a href="https://www.npmjs.com/package/vue"><img src="https://img.shields.io/npm/v/vue.svg?sanitize=true" alt="Vue Version"></a>
 </p>
 
-## event-Vue-showcase
-- Need to have [`npm`] [`json-server`] locally installed
-- To run this locally, simply download and extract, run ```bash npm install ``` to get the dependacies.
-- Then its recomemnded to run ```bash npm update ``` to make sure they are all up-to-date.
-- Launch the Vue app with ```bash npm run serve ```, however to see the example date there is one more step.
-- Lauch the Json server data in a seperate terminal via ```bash json-server --watch db.json ```, or to really feel the loading times and admire the progress bar + spinner, type: ```bash json-server -d 1500 db.json ``` which adds a 1.5 second delay for the API call.
+## Event-Vue-showcase
+You should have the latest [`npm`], [`json-server`] & [`Node.js`] locally installed.
+  
+To run this locally, simply download and extract, run ```bash npm install ``` to get the dependacies.
+  
+Then its recomemnded to run ```bash npm update ``` to make sure they are all up-to-date.
+  
+Launch the Vue app with ```bash npm run serve ```, however to see the example date there is one more step.
+  
+Lauch the Json server data in a seperate terminal via ```bash json-server --watch db.json ```, or to really feel the loading times and admire the progress bar + spinner, 
+type: ```bash json-server -d 1500 db.json ``` which adds a 1.5 second delay for the API call.
 
-<details><summary markdown='span'><strong>Further Things to make and learn</strong></summary>
+<details><summary markdown='span'><strong>Further things to add and learn</strong></summary>
 
 - Building a modular Vue event case shower.
 - Second is to build a [`Heroku`] host API for the db.json so that [`AXIO`] calls that instead of using localhost Json-server all the time.
