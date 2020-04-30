@@ -7,14 +7,14 @@
 ## Event-Vue-showcase
 You should have the latest [`npm`], [`json-server`] & [`Node.js`] locally installed.
   
-To run this locally, simply download and extract, run ```bash npm install ``` to get the dependacies.
+To run this locally, simply download and extract, run ```npm install ``` to get the dependacies.
   
-Then its recomemnded to run ```bash npm update ``` to make sure they are all up-to-date.
+Then its recomemnded to run ```npm update ``` to make sure they are all up-to-date.
   
-Launch the Vue app with ```bash npm run serve ```, however to see the example date there is one more step.
+Launch the Vue app with ```npm run serve ```, however to see the example date there is one more step.
   
-Lauch the Json server data in a seperate terminal via ```bash json-server --watch db.json ```, or to really feel the loading times and admire the progress bar + spinner, 
-type: ```bash json-server -d 1500 db.json ``` which adds a 1.5 second delay for the API call.
+Lauch the Json server data in a seperate terminal via ```json-server --watch db.json ```, or to really feel the loading times and admire the progress bar + spinner, 
+type: ```json-server -d 1500 db.json ``` which adds a 1.5 second delay for the API call.
 
 <details><summary markdown='span'><strong>Further things to add and learn</strong></summary>
 
